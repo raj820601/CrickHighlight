@@ -1,0 +1,24 @@
+{
+  "note": "This is a template for Android build configuration",
+  "gradle_config": {
+    "compileSdkVersion": 34,
+    "minSdkVersion": 24,
+    "targetSdkVersion": 34,
+    "versionCode": "flutterVersionCode.toInteger()",
+    "versionName": "flutterVersionName",
+    "buildTypes": {
+      "release": {
+        "signingConfig": "signingConfigs.debug",
+        "minifyEnabled": false,
+        "shrinkResources": false
+      }
+    }
+  },
+  "permissions": [
+    "android.permission.INTERNET",
+    "android.permission.READ_EXTERNAL_STORAGE",
+    "android.permission.WRITE_EXTERNAL_STORAGE",
+    "android.permission.CAMERA",
+    "android.permission.RECORD_AUDIO"
+  ]
+}
