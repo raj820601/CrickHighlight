@@ -1,0 +1,39 @@
+{
+  "app_info": {
+    "name": "Cricket Highlights Generator",
+    "package": "com.example.cricket_highlights_app",
+    "version": "1.0.0",
+    "build_number": 1
+  },
+  "build_variants": {
+    "debug": {
+      "command": "flutter build apk --debug",
+      "output": "build/app/outputs/flutter-apk/app-debug.apk",
+      "features": ["hot_reload", "debug_info", "larger_size"]
+    },
+    "release": {
+      "command": "flutter build apk --release",
+      "output": "build/app/outputs/flutter-apk/app-release.apk",
+      "features": ["optimized", "smaller_size", "production_ready"]
+    },
+    "profile": {
+      "command": "flutter build apk --profile",
+      "output": "build/app/outputs/flutter-apk/app-profile.apk",
+      "features": ["performance_profiling", "optimized"]
+    }
+  },
+  "testing_devices": {
+    "minimum": {
+      "android_version": "7.0",
+      "api_level": 24,
+      "ram": "2GB",
+      "storage": "1GB"
+    },
+    "recommended": {
+      "android_version": "10.0",
+      "api_level": 29,
+      "ram": "4GB",
+      "storage": "3GB"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+# Docker container for building Flutter APKs
+FROM cirrusci/flutter:3.16.0
+
+# Set working directory
+WORKDIR /app
+
+# Copy project files
+COPY . .
+
+# Install dependencies
+RUN flutter pub get
+
+# Generate code
+RUN flutter packages pub run build_runner build --delete-conflicting-outputs
+
+# Build APK
+RUN flutter build apk --release
+
+# Copy APK to output directory
+RUN mkdir -p /output && cp build/app/outputs/flutter-apk/app-release.apk /output/
+
+# Command to run
+CMD ["cp", "/app/build/app/outputs/flutter-apk/app-release.apk", "/output/cricket-highlights.apk"]
