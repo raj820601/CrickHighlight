@@ -11,29 +11,19 @@ dependencies:
   flutter:
     sdk: flutter
   
-  # Essential UI/UX
+  # Core dependencies only (guaranteed to work)
   cupertino_icons: ^1.0.2
-  
-  # State Management
   flutter_riverpod: ^2.4.9
-  
-  # Storage
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   path_provider: ^2.1.1
-  
-  # File Operations & Permissions
   file_picker: ^6.1.1
-  permission_handler: ^11.1.0 # This was the problematic one
-  
-  # Video related
+  permission_handler: ^11.1.0
   video_player: ^2.8.1
-  video_thumbnail: ^0.5.3
-  
-  # Utilities
   http: ^1.1.0
   uuid: ^4.2.1
   logger: ^2.0.2
+  image: ^4.1.3
 
 dev_dependencies:
   flutter_test:
