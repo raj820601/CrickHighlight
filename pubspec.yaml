@@ -1,5 +1,5 @@
 name: cricket_highlights_app
-description: Smart Cricket Video Highlights Generator
+description: Cricket Highlights Generator
 publish_to: 'none'
 version: 1.0.0+1
 
@@ -10,39 +10,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  
-  # Essential UI/UX
   cupertino_icons: ^1.0.2
-  
-  # State Management
-  flutter_riverpod: ^2.4.9
-  
-  # Storage
-  hive: ^2.2.3
-  hive_flutter: ^1.1.0
-  path_provider: ^2.1.1
-  
-  # File Operations & Permissions
-  file_picker: ^6.1.1
-  permission_handler: ^11.1.0 # This was the problematic one
-  
-  # Video related
-  video_player: ^2.8.1
-  video_thumbnail: ^0.5.3
-  
-  # Utilities
-  http: ^1.1.0
-  uuid: ^4.2.1
-  logger: ^2.0.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^3.0.0
-  build_runner: ^2.4.7
-  hive_generator: ^2.0.1
 
 flutter:
   uses-material-design: true
-  assets:
-    - assets/images/
