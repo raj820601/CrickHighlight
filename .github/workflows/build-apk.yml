@@ -1,0 +1,79 @@
+name: Build Android APK
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch: # Allows manual triggering from the GitHub Actions tab
+
+jobs:
+  build:
+    runs-on: ubuntu-latest # Specifies the operating system for the job
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4 # Checks out your repository code
+      
+    - name: Setup Java
+      uses: actions/setup-java@v4 # Sets up Java Development Kit (JDK)
+      with:
+        distribution: 'zulu' # Specifies the Java distribution
+        java-version: '17' # Specifies the Java version
+        
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v2 # Sets up the Flutter SDK
+      with:
+        flutter-version: '3.16.0' # Specifies the Flutter version
+        cache: false # Disables the built-in cache to avoid conflicts
+        
+    - name: Flutter doctor
+      run: flutter doctor -v # Runs Flutter doctor for diagnostic information
+        
+    - name: Cache Flutter dependencies
+      uses: actions/cache@v4 # Caches Flutter and Pub dependencies for faster builds
+      with:
+        path: | # Directories to cache
+          ~/.pub-cache # Pub package cache
+          ${{ runner.tool_cache }}/flutter # Flutter SDK cache
+        key: flutter-${{ runner.os }}-${{ hashFiles('**/pubspec.lock') }} # Unique cache key based on OS and pubspec.lock
+        restore-keys: | # Fallback keys if the primary key doesn't match
+          flutter-${{ runner.os }}-
+          
+    - name: Get dependencies
+      run: flutter pub get # Downloads all project dependencies
+      
+    - name: Build APK
+      run: flutter build apk --release # Builds the release APK
+      
+    - name: Upload APK
+      uses: actions/upload-artifact@v4 # Uploads the generated APK as a build artifact
+      with:
+        name: cricket-highlights-apk # Name of the artifact
+        path: build/app/outputs/flutter-apk/app-release.apk # Path to the APK file
+        
+    - name: Create Release
+      if: github.ref == 'refs/heads/main' # Only creates a release if pushed to the main branch
+      uses: softprops/action-gh-release@v1 # Action to create a GitHub Release
+      with:
+        tag_name: v1.0.${{ github.run_number }} # Generates a unique tag name for the release
+        name: Cricket Highlights v1.0.${{ github.run_number }} # Name of the release
+        body: | # Description for the release
+          🏏 Cricket Highlights Generator APK
+          
+          ## Installation
+          1. Download the APK file below
+          2. Enable "Install from unknown sources" on your Android device
+          3. Install the APK
+          4. Grant storage and camera permissions
+          
+          ## Requirements
+          - Android 7.0 (API 24) or higher
+          - 3GB+ RAM recommended
+          - 2GB+ free storage
+        files: | # Files to attach to the release
+          build/app/outputs/flutter-apk/app-release.apk
+        draft: false # Makes the release public immediately
+        prerelease: false # Marks the release as a stable release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GitHub token for authentication
